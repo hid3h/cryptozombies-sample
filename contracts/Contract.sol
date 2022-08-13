@@ -16,14 +16,15 @@ contract ZombieFactory {
   // 関数はデフォルトでパブリックになるのでprivateにしたかったらprivateと付ける必要がある
   // https://cryptozombies.io/jp/lesson/1/chapter/9
   function _createZombie(string memory _name, uint _dna) private {
-    uint id = zombies.push(Zombie(_name, _dna)) - 1;
-    NewZombie(id, _name, _dna);
+    zombies.push(Zombie(_name, _dna));
+    uint id = zombies.length - 1;
+    emit NewZombie(id, _name, _dna);
   }
 
   // viewを付けると読み取り専用になり、アプリ内のデータを編集できなくなる
   // https://cryptozombies.io/jp/lesson/1/chapter/10
   function _generateRandomDna(string memory _str) private view returns (uint) {
-    uint rand = uint(keccak256(_str));
+    uint rand = uint(keccak256(bytes(_str)));
     return rand % dnaModulus;
   }
 
