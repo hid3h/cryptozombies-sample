@@ -9,7 +9,25 @@
       const web3 = new Web3();
       web3.setProvider(new web3.providers.HttpProvider("http://localhost:8545"));
 
-      web3.eth.getAccounts(console.log)
+      const abi = [{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"zombieId","type":"uint256"},{"indexed":false,"internalType":"string","name":"name","type":"string"},{"indexed":false,"internalType":"uint256","name":"dna","type":"uint256"}],"name":"NewZombie","type":"event"},{"inputs":[{"internalType":"string","name":"_name","type":"string"}],"name":"createRandomZombie","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"zombies","outputs":[{"internalType":"string","name":"name","type":"string"},{"internalType":"uint256","name":"dna","type":"uint256"}],"stateMutability":"view","type":"function"}]
+      const address = "0x8f09d6800f04d502e3c2c13a75043b968a97a716"
+      const ZombieFactoryContract = new web3.eth.Contract(abi, address)
+
+      web3.eth.personal.unlockAccount("0xeAf70472e32D4560D4F74C7170e510b858CD1688", "hoge")
+        .then(console.log("unlock!"));
+
+      const event = ZombieFactoryContract.events.NewZombie({}, (error, result) => {
+        if (error) {
+          console.log("error", error)
+          return
+        }
+        console.log("成功!", result.zombieId, result.name, result.dna)
+      })
+
+      ZombieFactoryContract.methods.createRandomZombie("hoge").send({from: "0xeAf70472e32D4560D4F74C7170e510b858CD1688"})
+        .on('receipt', function() {
+          console.log("どうなってんの")
+        });
 
       console.log("end")
     </script>
