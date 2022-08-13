@@ -4,6 +4,14 @@
     <meta charset="utf-8" />
   </head>
   <body>
-    <script src="index.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.7.5/web3.min.js"></script>
+    <script>
+      const web3 = new Web3();
+      web3.setProvider(new web3.providers.HttpProvider("http://localhost:8545"));
+
+      web3.eth.getAccounts(console.log)
+
+      console.log("end")
+    </script>
   </body>
 </html>
