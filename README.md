@@ -1,6 +1,4 @@
-# solidity-sample
+# CryptoZombies
+https://cryptozombies.io/jp/
 
-# コンパイル
-```
-docker-compose run --rm app --bin -o /code/solcoutput /code/StorageSample.sol
-```
+ブラウザ上ではなくローカル環境でやってみたもの。
