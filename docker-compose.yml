@@ -1,6 +1,10 @@
 version: "3"
 services:
-  app:
-    image: ethereum/solc:stable
+  app1:
+    image: ethereum/client-go
+    entrypoint: /bin/sh
+    tty: true
     volumes:
-      - .:/code
+      - ./private_net:/app
+    ports:
+      - 8545:8545 # http.portのデフォルト.MetaMask接続用
