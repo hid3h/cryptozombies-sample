@@ -7,4 +7,5 @@ services:
     volumes:
       - ./private_net:/app
     ports:
-      - 8545:8545 # http.portのデフォルト.MetaMask接続用
+      - 8545:8545
+      - 8546:8546
