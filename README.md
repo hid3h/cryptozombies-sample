@@ -16,5 +16,5 @@ geth --networkid "22" --nodiscover --datadir /app --http --http.addr "0.0.0.0" -
 ## コンパイル
 ```
 cd contracts
-docker-compose run --rm app --abi --bin --overwrite-o /code/solcoutput /code/Contract.sol 
+docker-compose run --rm app --abi --bin --overwrite -o /code/solcoutput /code/ZombieFeeding.sol 
 ```
