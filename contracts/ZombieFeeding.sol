@@ -2,12 +2,8 @@ pragma solidity ^0.8.0;
 
 import "./ZombieFactory.sol";
 
-contract KittyInterface {
-  function getKitty(uint256 _id) external view returns (
-    bool isGestating,
-    bool isReady,
-    uint256 cooldownIndex,
-    uint256 nextActionAt,
+abstract contract KittyInterface {
+  function getKitty(uint256 _id) virtual external view returns (
     uint256 siringWithId,
     uint256 birthTime,
     uint256 matronId,
@@ -19,7 +15,7 @@ contract KittyInterface {
 
 contract ZombieFeeding is ZombieFactory {
 
-  address ckAddress = 0x06012c8cf97BEaD5deAe237070F9587f8E7A266d;
+  address ckAddress = 0xb262459e4112b34170e6bf0fd01a8f898f526a8c;
 
   KittyInterface ckContract = KittyInterface(ckAddress);
 
@@ -40,7 +36,7 @@ contract ZombieFeeding is ZombieFactory {
 
   function feedOnKitty(uint _zombieId, uint _kittyId) public {
     uint kittyDna;
-    (,,,,,,,,,kittyDna) = ckContract.getKitty(_kittyId);
+    (,,,,,kittyDna) = ckContract.getKitty(_kittyId);
     feedAndMultiply(_zombieId, kittyDna, "kitty");
   }
 }
