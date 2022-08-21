@@ -18,3 +18,14 @@ geth --networkid "22" --nodiscover --datadir /app --http --http.addr "0.0.0.0" -
 cd contracts
 docker-compose run --rm app --abi --bin --overwrite -o /code/solcoutput /code/ZombieFeeding.sol 
 ```
+
+## デプロイ
+```
+docker-compose exec app1 /bin/sh
+# Geth起動
+bin = "0x"
+abi = []
+contract = eth.contract(abi)
+# アンロックが必要であればpersonal.unlockAccount(eth.accounts[0])
+myContract = contract.new({ from: eth.accounts[0], data: bin})
+```
