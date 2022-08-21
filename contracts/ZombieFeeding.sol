@@ -15,7 +15,7 @@ abstract contract KittyInterface {
 
 contract ZombieFeeding is ZombieFactory {
 
-  address ckAddress = 0xb262459e4112b34170e6bf0fd01a8f898f526a8c;
+  address ckAddress = 0xB262459E4112B34170e6bf0Fd01a8F898f526A8C;
 
   KittyInterface ckContract = KittyInterface(ckAddress);
 

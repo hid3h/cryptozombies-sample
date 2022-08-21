@@ -7,11 +7,18 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.7.5/web3.min.js"></script>
     <script>
       const web3 = new Web3();
-      web3.setProvider(new web3.providers.HttpProvider("http://localhost:8545"));
-      web3.setProvider(new Web3.providers.WebsocketProvider('ws://localhost:8546'));
+      const httpRes = web3.setProvider(new web3.providers.HttpProvider("http://localhost:8545"));
+      const wsRes = web3.setProvider(new Web3.providers.WebsocketProvider('ws://localhost:8546'));
+      console.log("接続", httpRes, wsRes)
 
-      const abi = [{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"zombieId","type":"uint256"},{"indexed":false,"internalType":"string","name":"name","type":"string"},{"indexed":false,"internalType":"uint256","name":"dna","type":"uint256"}],"name":"NewZombie","type":"event"},{"inputs":[{"internalType":"string","name":"_name","type":"string"}],"name":"createRandomZombie","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"zombies","outputs":[{"internalType":"string","name":"name","type":"string"},{"internalType":"uint256","name":"dna","type":"uint256"}],"stateMutability":"view","type":"function"}]
-      const address = "0x8f09d6800f04d502e3c2c13a75043b968a97a716"
+      const abi = [{"anonymous":false,"inputs":[{"indexed":false,"internalType":"uint256","name":"zombieId","type":"uint256"},{"indexed":false,"internalType":"string","name":"name","type":"string"},{"indexed":false,"internalType":"uint256","name":"dna","type":"uint256"}],"name":"NewZombie","type":"event"},{"inputs":[{"internalType":"string","name":"_name","type":"string"}],"name":"createRandomZombie","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"_zombieId","type":"uint256"},{"internalType":"uint256","name":"_targetDna","type":"uint256"},{"internalType":"string","name":"_species","type":"string"}],"name":"feedAndMultiply","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"_zombieId","type":"uint256"},{"internalType":"uint256","name":"_kittyId","type":"uint256"}],"name":"feedOnKitty","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"zombieToOwner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"zombies","outputs":[{"internalType":"string","name":"name","type":"string"},{"internalType":"uint256","name":"dna","type":"uint256"}],"stateMutability":"view","type":"function"}]
+      // レッスン1までの
+<!--      const address = "0x8f09d6800f04d502e3c2c13a75043b968a97a716"-->
+      // Kittyの
+<!--      const address = "0xb262459e4112b34170e6bf0fd01a8f898f526a8c"-->
+      // レッスン2までの
+      const address = "0x314ba36c2582db70b4dc2aecd8725c1e7783987b"
+
       const ZombieFactoryContract = new web3.eth.Contract(abi, address)
 
       web3.eth.personal.unlockAccount("0xeAf70472e32D4560D4F74C7170e510b858CD1688", "hoge")
@@ -25,7 +32,7 @@
         console.log("成功!", result, result.returnValues)
       })
 
-      ZombieFactoryContract.methods.createRandomZombie("hoge").send({from: "0xeAf70472e32D4560D4F74C7170e510b858CD1688"})
+      ZombieFactoryContract.methods.feedOnKitty(0, 2).send({from: "0xeAf70472e32D4560D4F74C7170e510b858CD1688"})
         .on('receipt', (error, result) => {
           if (error) {
             console.log("createRandomZombieerror", error)
